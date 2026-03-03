@@ -1,0 +1,68 @@
+[
+  {
+    "title": "Learn Express Basics",
+    "description": "Understand routing and middleware",
+    "completed": false,
+    "priority": 2,
+    "difficulty": 1,
+    "estimatedHours": 3,
+    "category": "Backend",
+    "dueDate": "2026-03-01T10:00:00.000Z",
+    "createdAt": "2026-02-20T08:00:00.000Z"
+  },
+  {
+    "title": "Build Task CRUD API",
+    "description": "Implement create, read, update, delete",
+    "completed": true,
+    "priority": 3,
+    "difficulty": 2,
+    "estimatedHours": 6,
+    "category": "Backend",
+    "dueDate": "2026-03-05T12:00:00.000Z",
+    "createdAt": "2026-02-18T09:30:00.000Z"
+  },
+  {
+    "title": "Connect MongoDB Atlas",
+    "description": "Setup cloud database",
+    "completed": false,
+    "priority": 3,
+    "difficulty": 2,
+    "estimatedHours": 4,
+    "category": "Database",
+    "dueDate": "2026-03-02T14:00:00.000Z",
+    "createdAt": "2026-02-21T07:45:00.000Z"
+  },
+  {
+    "title": "Add Error Handling Middleware",
+    "description": "Centralize error responses",
+    "completed": false,
+    "priority": 2,
+    "difficulty": 3,
+    "estimatedHours": 5,
+    "category": "Backend",
+    "dueDate": "2026-03-07T16:00:00.000Z",
+    "createdAt": "2026-02-19T11:15:00.000Z"
+  },
+  {
+    "title": "Implement Authentication",
+    "description": "Add JWT authentication",
+    "completed": false,
+    "priority": 5,
+    "difficulty": 4,
+    "estimatedHours": 10,
+    "category": "Security",
+    "dueDate": "2026-03-10T18:00:00.000Z",
+    "createdAt": "2026-02-22T13:00:00.000Z"
+  },
+  {
+    "title": "Deploy API to Render",
+    "description": "Deploy production server",
+    "completed": false,
+    "priority": 4,
+    "difficulty": 3,
+    "estimatedHours": 7,
+    "category": "DevOps",
+    "dueDate": "2026-03-15T09:00:00.000Z",
+    "createdAt": "2026-02-23T10:00:00.000Z"
+  }
+]
