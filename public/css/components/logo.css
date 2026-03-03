@@ -1,0 +1,31 @@
+/**
+ * Logo Component Styles
+ */
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+}
+
+.logo__icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-primary);
+    border-radius: var(--radius-lg);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: white;
+}
+
+.logo__text {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}

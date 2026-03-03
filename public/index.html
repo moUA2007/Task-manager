@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow - Task Manager</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Loading -->
+    <div id="loading" class="loading-overlay hidden">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Auth Section -->
+    <div id="auth-section" class="auth-section">
+        <div class="auth-bg">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+        
+        <div class="auth-container">
+            <div class="auth-header">
+                <div class="logo">
+                    <span class="logo-icon">✓</span>
+                    <span class="logo-text">TaskFlow</span>
+                </div>
+                <p class="auth-subtitle">Smart Task Management</p>
+            </div>
+
+            <!-- Login Form -->
+            <div id="login-form" class="auth-form">
+                <h2>Sign In</h2>
+                <form id="login-submit">
+                    <div class="input-group">
+                        <label>Email</label>
+                        <input type="email" id="login-email" placeholder="you@example.com" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Password</label>
+                        <input type="password" id="login-password" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+                </form>
+                <p class="auth-forgot">
+                    <a href="#" onclick="showForgotPassword(); return false;">Forgot your password?</a>
+                </p>
+                <p class="auth-switch">
+                    Don't have an account? <a href="#" onclick="showSignup(); return false;">Create one</a>
+                </p>
+            </div>
+
+            <!-- Signup Form -->
+            <div id="signup-form" class="auth-form hidden">
+                <h2>Create Account</h2>
+                <form id="signup-submit">
+                    <div class="input-group">
+                        <label>Name</label>
+                        <input type="text" id="signup-name" placeholder="Your name" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Email</label>
+                        <input type="email" id="signup-email" placeholder="you@example.com" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Password</label>
+                        <input type="password" id="signup-password" placeholder="••••••••" minlength="8" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Confirm Password</label>
+                        <input type="password" id="signup-confirm" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+                </form>
+                <p class="auth-switch">
+                    Already have an account? <a href="#" onclick="showLogin(); return false;">Sign in</a>
+                </p>
+            </div>
+
+            <!-- Forgot Password Form -->
+            <div id="forgot-password-form" class="auth-form hidden">
+                <h2>Forgot Password</h2>
+                <p class="auth-form-desc">Enter your email address and we'll send you a reset token.</p>
+                <form id="forgot-password-submit">
+                    <div class="input-group">
+                        <label>Email</label>
+                        <input type="email" id="forgot-email" placeholder="you@example.com" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Send Reset Token</button>
+                </form>
+                <p class="auth-switch">
+                    Remember your password? <a href="#" onclick="showLogin(); return false;">Sign in</a>
+                </p>
+            </div>
+
+            <!-- Reset Password Form -->
+            <div id="reset-password-form" class="auth-form hidden">
+                <h2>Reset Password</h2>
+                <p class="auth-form-desc">Enter the reset token from your email and your new password.</p>
+                <form id="reset-password-submit">
+                    <div class="input-group">
+                        <label>Reset Token</label>
+                        <input type="text" id="reset-token" placeholder="Paste your reset token" required>
+                    </div>
+                    <div class="input-group">
+                        <label>New Password</label>
+                        <input type="password" id="reset-password" placeholder="••••••••" minlength="8" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Confirm New Password</label>
+                        <input type="password" id="reset-confirm-password" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Reset Password</button>
+                </form>
+                <p class="auth-switch">
+                    Remember your password? <a href="#" onclick="showLogin(); return false;">Sign in</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Section -->
+    <div id="dashboard-section" class="dashboard-section hidden">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="logo-icon">✓</span>
+                    <span class="logo-text">TaskFlow</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" onclick="filterTasks('all'); setActiveNav(this); return false;">
+                    <span>📋</span> All Tasks
+                </a>
+                <a href="#" class="nav-item" onclick="filterTasks('pending'); setActiveNav(this); return false;">
+                    <span>⏳</span> In Progress
+                </a>
+                <a href="#" class="nav-item" onclick="filterTasks('completed'); setActiveNav(this); return false;">
+                    <span>✅</span> Completed
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="btn btn-logout" onclick="logout()">
+                    <span>🚪</span> Logout
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="main-header">
+                <div class="header-title">
+                    <h1>Welcome! 👋</h1>
+                    <p>Here are your tasks</p>
+                </div>
+                <button class="btn btn-primary" onclick="openTaskModal()">
+                    <span>+</span> New Task
+                </button>
+            </header>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon total">📋</div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="total-tasks">0</span>
+                        <span class="stat-label">Total</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon pending">⏳</div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="pending-tasks">0</span>
+                        <span class="stat-label">Pending</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon completed">✅</div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="completed-tasks">0</span>
+                        <span class="stat-label">Completed</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon high">🔥</div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="high-priority-tasks">0</span>
+                        <span class="stat-label">High Priority</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tasks-section">
+                <div class="tasks-header">
+                    <h2>Tasks</h2>
+                    <div class="tasks-filters">
+                        <select id="category-filter" onchange="loadTasks()">
+                            <option value="">All Categories</option>
+                            <option value="Backend">Backend</option>
+                            <option value="Frontend">Frontend</option>
+                            <option value="Database">Database</option>
+                            <option value="Security">Security</option>
+                            <option value="DevOps">DevOps</option>
+                        </select>
+                        <select id="sort-filter" onchange="loadTasks()">
+                            <option value="-createdAt">Newest</option>
+                            <option value="createdAt">Oldest</option>
+                            <option value="-priority">Priority ↓</option>
+                            <option value="priority">Priority ↑</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="tasks-container" class="tasks-grid"></div>
+                <div id="empty-state" class="empty-state hidden">
+                    <span style="font-size: 4rem;">📋</span>
+                    <h3>No Tasks</h3>
+                    <p>Create your first task</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Task Modal -->
+    <div id="task-modal" class="modal hidden">
+        <div class="modal-overlay" onclick="closeTaskModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">New Task</h2>
+                <button class="modal-close" onclick="closeTaskModal()">✕</button>
+            </div>
+            <form id="task-form">
+                <input type="hidden" id="task-id">
+                <div class="input-group">
+                    <label>Title *</label>
+                    <input type="text" id="task-title" required>
+                </div>
+                <div class="input-group">
+                    <label>Description</label>
+                    <textarea id="task-description" rows="3"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="input-group">
+                        <label>Category *</label>
+                        <select id="task-category" required>
+                            <option value="">Select</option>
+                            <option value="Backend">Backend</option>
+                            <option value="Frontend">Frontend</option>
+                            <option value="Database">Database</option>
+                            <option value="Security">Security</option>
+                            <option value="DevOps">DevOps</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Priority</label>
+                        <select id="task-priority">
+                            <option value="1">1 - Low</option>
+                            <option value="2">2</option>
+                            <option value="3" selected>3 - Medium</option>
+                            <option value="4">4</option>
+                            <option value="5">5 - High</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="input-group">
+                        <label>Difficulty</label>
+                        <select id="task-difficulty">
+                            <option value="1">Easy</option>
+                            <option value="2">2</option>
+                            <option value="3" selected>Medium</option>
+                            <option value="4">4</option>
+                            <option value="5">Hard</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Hours</label>
+                        <input type="number" id="task-hours" min="1">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Due Date</label>
+                    <input type="date" id="task-due">
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeTaskModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="submit-btn">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Modal -->
+    <div id="delete-modal" class="modal hidden">
+        <div class="modal-overlay" onclick="closeDeleteModal()"></div>
+        <div class="modal-content modal-small">
+            <h2>Delete Task?</h2>
+            <p style="text-align:center; color: var(--text-secondary); margin: 20px 0;">This cannot be undone.</p>
+            <div class="form-actions">
+                <button class="btn btn-secondary" onclick="closeDeleteModal()">Cancel</button>
+                <button class="btn btn-danger" onclick="confirmDelete()">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
