@@ -33,7 +33,7 @@ exports.updatePassword = catchAsync(async(req,res,next)=>{    //body  =>>>> curr
     if(!await bcrypt.compare(req.body.currentPassword,user.password)){
         return next(new ErrorCustomize('the is any user by this id',401))
     }
-    user.password =req.body.newPassword
+    user.password = req.body.newPassword
     user.confirmedPassword = req.body.passwordConfirm 
     await user.save()
     res.status(200).json({
