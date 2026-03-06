@@ -57,6 +57,21 @@ Install dependencies
 
 npm install
 
+Set up environment variables
+
+Copy the `.env.example` file to `.env` and update it with your own values:
+
+cp .env.example .env
+
+Edit `.env` and add your configuration:
+- MongoDB Atlas URI (CONNECT)
+- Database credentials (USER, PASSWORD)
+- JWT_SECRET for token signing
+- Email service credentials (EMAIL_HOST, EMAIL_PORT, EMAIL_USERNAME, EMAIL_PASSWORD)
+- PORT (default: 5000)
+
+**IMPORTANT: Never commit `.env` to version control. The `.env` file is already in `.gitignore`**
+
 Start the development server
 
 npm run dev
