@@ -13,9 +13,7 @@ const userRoutes = require('./Routes/userRoutes')
 const ErrorCustomize = require('./API/Error')
 
 // 1) Security HTTP Headers
-app.use(helmet({
-    contentSecurityPolicy: false
-}));
+app.use(helmet());
 
 // 2) Rate Limiting - 100 requests per 15 minutes per IP
 const limiter = rateLimit({
