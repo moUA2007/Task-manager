@@ -42,10 +42,17 @@ exports.createTask = catchAsync(async (req, res, next) => {
 })
 
 exports.updateTask = catchAsync(async (req, res, next) => {
-    // Only allow updating own tasks
+    // 1) Filter out unwanted fields names that are not allowed to be updated
+    const filteredBody = {};
+    const allowedFields = ['title', 'description', 'completed', 'priority', 'difficulty', 'estimatedHours', 'category', 'dueDate'];
+    Object.keys(req.body).forEach(el => {
+        if (allowedFields.includes(el)) filteredBody[el] = req.body[el];
+    });
+
+    // 2) Only allow updating own tasks
     const task = await Task.findOneAndUpdate(
         { _id: req.params.id, user: req.user._id },
-        req.body,
+        filteredBody,
         { new: true, runValidators: true }
     )
     if (!task) {
