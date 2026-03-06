@@ -57,6 +57,10 @@ Install dependencies
 
 npm install
 
+Set up environment variables
+
+Create a `.env` file in the root directory and copy the contents from `.env.example`. Replace the placeholder values with your own credentials.
+
 Start the development server
 
 npm run dev
