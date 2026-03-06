@@ -6,12 +6,12 @@ const router = express.Router()
 router.use(authController.protect);
 
 router.route('/')
-    .get(userController.getUsers);
+    .get(authController.restrictTo('admin'), userController.getUsers);
 
 router.route('/updatePassword')
     .post(userController.updatePassword);
 
 router.route('/:id')
-    .get(userController.getUserByID);
+    .get(authController.restrictTo('admin'), userController.getUserByID);
 
 module.exports = router;
