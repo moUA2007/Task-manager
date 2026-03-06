@@ -16,9 +16,15 @@ class APIutils {
                 const field = key.split('[')[0];
                 const op = key.split('[')[1].replace(']', '');
                 if (!parsedObj[field]) parsedObj[field] = {};
-                parsedObj[field]['$' + op] = Number(queryObj[key]);
+
+                // Robust numeric check: check if string is non-empty and represents a finite number
+                const val = queryObj[key];
+                const isNumeric = val.trim() !== '' && !isNaN(Number(val)) && isFinite(Number(val));
+                parsedObj[field]['$' + op] = isNumeric ? Number(val) : val;
             } else {
-                parsedObj[key] = Number(queryObj[key]);
+                const val = queryObj[key];
+                const isNumeric = typeof val === 'string' && val.trim() !== '' && !isNaN(Number(val)) && isFinite(Number(val));
+                parsedObj[key] = isNumeric ? Number(val) : val;
             }
         });
 

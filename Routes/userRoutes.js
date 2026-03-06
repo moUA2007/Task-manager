@@ -3,8 +3,15 @@ const userController = require('../Controllers/userController')
 const authController = require('../Controllers/authController')
 const router = express.Router() 
 
+router.use(authController.protect);
+
+router.route('/')
+    .get(userController.getUsers);
+
 router.route('/updatePassword')
-.post(authController.protect,userController.updatePassword) 
+    .post(userController.updatePassword);
 
+router.route('/:id')
+    .get(userController.getUserByID);
 
-module.exports = router 
+module.exports = router;
